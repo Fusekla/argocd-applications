@@ -2,13 +2,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: platform
+  namespace: argocd
 spec:
-  description: "Platform apps"
+  description: Platform apps
   sourceRepos:
     - https://github.com/Fusekla/argocd-applications
   destinations:
-    - namespace: '*'
-      server: https://kubernetes.default.svc
+    - server: https://kubernetes.default.svc
+      namespace: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
