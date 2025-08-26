@@ -90,7 +90,7 @@ The Root App is **applied from the controlplane repo** after Argo CD is installe
 - `clusters/local/kustomization.yaml` includes `../../envs/local`
 - (Optional) `clusters/local/root.yaml` if you also want an in-repo root
 4. From `argocd-controlplane`
-- `kubectl apply -k clusters/local` (install Argo CD)
+- `kubectl apply -k clusters/local` (install Argo CD and `AppProject`)
 - `kubectl apply -f root/root-app.yaml` (Root App → this repo)
 - In Argo UI: open **root-local** and **Sync** (manual, prune off)
 
@@ -129,14 +129,6 @@ If any build fails with “no resources specified”, ensure each `kustomization
 4. **Bundle env:** add the new file to `envs/<env>/kustomization.yaml`
 5. **Compile & PR:** run the build checks above; open a PR
 
-## AppProject (policies)
-
-- `projects/platform.yaml` defines:
-  - `sourceRepos:` allow this repo (and others if needed)
-  - `destinations:` typically server: `https://kubernetes.default.svc`, `namespace: '*'`
-  - Whitelists for cluster/namespace resources (tighten over time)
-- Point `spec.project` of Applications to this project when ready
-
 ## CI (optional but recommended)
 
 - Add a lightweight CI to render key paths:
@@ -156,6 +148,6 @@ If any build fails with “no resources specified”, ensure each `kustomization
 
 ## Relationship to `argocd-controlplane`
 
-- Controlplane installs Argo CD and applies the **Root Application** that points to `clusters/<cluster>` here
+- Controlplane installs Argo CD and applies the **Root Application** that points to `clusters/<cluster>` here as well as `AppProject` object(s) and RBAC 
 - This repo then defines everything Argo CD should deploy (by env and app)
 - Controlplane = *platform plumbing*. Applications repo = *workloads topology*
