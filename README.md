@@ -3,7 +3,7 @@
 **Purpose:** Holds all workload manifests and Argo CD `Application` objects, organized by **app → env → cluster**.
 **Pair repo:** [argocd-controlplane](https://github.com/Fusekla/argocd-controlplane) installs/configures Argo CD and applies the single Root Application that points here.
 
-## Repository layout
+## 📂 Repository layout
 
 ```bash
 argocd-applications/
@@ -78,7 +78,7 @@ spec:
 
 The Root App is **applied from the controlplane repo** after Argo CD is installed there.
 
-## Quick start (local cluster example)
+## 🚀 Quick start (local cluster example)
 
 1. Populate app base & overlay
 - `apps/guestbook/base/{deployment.yaml,service.yaml}`
